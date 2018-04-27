@@ -1,4 +1,4 @@
-package com.sxind.gradle.artifactverifier;
+package industries.saks.gradle.artifactverifier;
 
 public class ArtifactVerifierPluginExtension {
 

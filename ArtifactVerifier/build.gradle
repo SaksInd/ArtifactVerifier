@@ -8,6 +8,7 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin: 'java-gradle-plugin'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -15,6 +16,9 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+
+group 'industries.saks.gradle'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -30,8 +34,24 @@ dependencies {
 	compile localGroovy()
 
 	//our plugin requires Gradle API interfaces and classes to compile:
-	compile gradleApi()
+//	testCompile gradleApi()
+//	testCompile gradleTestKit()
+	testCompile 'commons-io:commons-io:+'
+}
 
-	compile 'org.adrianwalker:multiline-string:+'
 
+
+sourceSets.test {
+	resources.srcDirs = ['src/test/assets']
+}
+
+gradlePlugin {
+	pluginSourceSet project.sourceSets.main
+	testSourceSets project.sourceSets.test
+	plugins {
+		artifactVerifierPlugin {
+			id  = 'industries.saks.gradle.artifactverifier'
+			implementationClass = 'industries.saks.gradle.artifactverifier.ArtifactVerifierPlugin'
+		}
+	}
 }

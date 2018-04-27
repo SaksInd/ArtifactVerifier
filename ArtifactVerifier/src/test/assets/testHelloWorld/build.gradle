@@ -1,0 +1,27 @@
+
+plugins {	id 'artifactverifier' }
+
+apply plugin: 'java'
+apply plugin: 'artifactverifier'
+
+
+
+
+task helloWorld {
+
+	doLast{
+		println 'Hello world!'
+	}
+
+}
+
+verifyArtifact{
+	has 1 jar
+
+	jarc{
+		isEmpty
+		name
+	}
+
+
+}
